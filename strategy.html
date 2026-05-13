@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ГПУ Strategy Brainstorm · экспертная панель + Codex-критика + пивоты</title>
+<meta name="description" content="Результаты мозгового штурма по бизнес-модели импорта оборудования в РФ Q3 2026. Экспертная панель → adversarial Codex → 5 пивотов под каждое замечание.">
+<meta property="og:title" content="ГПУ Strategy Brainstorm">
+<meta property="og:description" content="6 экспертов спорят про сектор Q3 2026, Codex атакует план, на выходе — kill criteria и конкретные пивоты.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E10600;
+  --red-dark:#a30400;
+  --red-soft:#ffe5e3;
+  --ink:#0a0a0a;
+  --bone:#fafaf7;
+  --line:#0a0a0a;
+  --muted:#666;
+  --grid:#ececea;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bone);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+
+/* TAPE */
+.tape{background:var(--red);color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;padding:8px 0;overflow:hidden;letter-spacing:0.05em;text-transform:uppercase;border-bottom:3px solid var(--ink)}
+.tape-track{display:flex;gap:48px;white-space:nowrap;animation:slide 50s linear infinite}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tape-track span::before{content:"◆ ";margin-right:4px}
+.tape a{color:#fff;text-decoration:underline}
+
+/* HERO */
+.hero{padding:64px 0 72px;border-bottom:3px solid var(--ink);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;bottom:-60px;left:-60px;width:280px;height:280px;background:var(--red);border-radius:50%;opacity:0.05;z-index:0}
+.hero-inner{position:relative;z-index:1}
+.kicker{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--ink);color:#fff;padding:6px 12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px}
+.kicker .dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-right:8px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(40px,7vw,96px);line-height:0.95;letter-spacing:-0.03em;font-weight:700;margin-bottom:24px}
+h1.hero-title .red{color:var(--red)}
+.hero-lead{font-size:19px;max-width:760px;line-height:1.5;color:var(--ink);margin-bottom:32px}
+.hero-lead strong{background:var(--red);color:#fff;padding:2px 8px}
+.crumb{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:16px}
+.crumb a{color:var(--red);text-decoration:none;border-bottom:1px dotted var(--red)}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:3px solid var(--ink);background:#fff;margin-top:40px}
+.flow-step{padding:20px 24px;border-right:2px solid var(--ink);position:relative}
+.flow-step:last-child{border-right:none}
+.flow-num{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:var(--red);line-height:1}
+.flow-step h4{font-family:'Space Grotesk',sans-serif;font-size:18px;margin:4px 0 8px;font-weight:700}
+.flow-step p{font-size:13px;color:#444;line-height:1.45}
+
+/* SECTION */
+section{padding:72px 0;border-bottom:2px solid var(--grid)}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.sec-label::before{content:"";display:block;width:40px;height:2px;background:var(--red)}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.5vw,56px);line-height:1;letter-spacing:-0.03em;font-weight:700;margin-bottom:28px;max-width:900px}
+h2 .red{color:var(--red)}
+.sec-lead{font-size:17px;max-width:760px;color:var(--ink);margin-bottom:40px;line-height:1.55}
+
+/* PANEL */
+.panel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:3px solid var(--ink);background:#fff}
+.expert{padding:28px 32px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.expert:nth-child(2n){border-right:none}
+.expert:nth-last-child(-n+2){border-bottom:none}
+.expert .role{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--red);font-weight:600;margin-bottom:6px}
+.expert h3{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:16px;line-height:1.05}
+.expert .block{margin-bottom:12px}
+.expert .block-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;margin-bottom:2px}
+.expert .block-val{font-size:14px;line-height:1.5;color:#222}
+.expert .rec{background:var(--red-soft);padding:10px 14px;border-left:4px solid var(--red);margin-top:14px;font-size:14px;line-height:1.45}
+
+/* SECTORS */
+.sector-table{border:3px solid var(--ink);background:#fff;overflow-x:auto}
+.sector-table table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+.sector-table thead{background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+.sector-table th{padding:14px 16px;text-align:left;font-weight:600;border-right:1px solid #333}
+.sector-table th:last-child{border-right:none}
+.sector-table tr{border-bottom:1px solid var(--grid)}
+.sector-table td{padding:14px 16px;border-right:1px solid var(--grid);vertical-align:top}
+.sector-table td:last-child{border-right:none}
+.sector-table .focus{background:var(--red-soft)}
+.sector-table .focus td:first-child{position:relative}
+.sector-table .focus td:first-child::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red)}
+.stars{color:var(--red);letter-spacing:2px}
+.stars .off{color:var(--grid)}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--ink);color:#fff;padding:2px 6px;letter-spacing:0.05em;margin-left:6px}
+
+/* CODEX BLOCK */
+.codex-banner{background:var(--ink);color:#fff;padding:28px 32px;border:3px solid var(--red);margin-bottom:32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.codex-banner .verdict{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:var(--red);line-height:1}
+.codex-banner .stamp{font-family:'JetBrains Mono',monospace;font-size:11px;color:#888;letter-spacing:0.08em;text-transform:uppercase}
+.codex-banner .verd-body{flex:1;min-width:300px;font-size:16px;line-height:1.5}
+.codex-banner .verd-body strong{color:var(--red)}
+
+.finding{background:#fff;border:3px solid var(--ink);margin-bottom:20px;overflow:hidden}
+.finding-head{padding:18px 24px;background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.finding-head h4{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;line-height:1.15}
+.sev{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:5px 10px;letter-spacing:0.08em;text-transform:uppercase}
+.sev.critical{background:var(--red);color:#fff}
+.sev.high{background:#ff7a00;color:#fff}
+.finding-body{padding:22px 28px}
+.finding-body p{font-size:14px;line-height:1.55;margin-bottom:12px;color:#222}
+.finding-body .refs{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:12px;line-height:1.7}
+.finding-body .refs a{color:var(--red);text-decoration:none;border-bottom:1px dotted var(--red);word-break:break-all}
+.finding-body .rec-box{background:var(--red-soft);padding:14px 18px;border-left:4px solid var(--red);margin-top:14px;font-size:14px;line-height:1.5}
+.finding-body .rec-box strong{color:var(--red-dark)}
+
+/* PIVOTS */
+.pivot{display:grid;grid-template-columns:80px 1fr;gap:0;background:#fff;border:3px solid var(--ink);margin-bottom:20px;overflow:hidden}
+.pivot-num{background:var(--red);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
+.pivot-body{padding:22px 28px}
+.pivot-body h4{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:8px;line-height:1.1}
+.pivot-body .target{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;color:var(--red);letter-spacing:0.05em;margin-bottom:10px;font-weight:600}
+.pivot-body p{font-size:14px;line-height:1.55;color:#222;margin-bottom:10px}
+.pivot-body .deadline{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--ink);color:#fff;padding:4px 10px;letter-spacing:0.04em}
+
+/* KILL CRITERIA */
+.kill-tbl{border:3px solid var(--ink);background:#fff;overflow-x:auto}
+.kill-tbl table{width:100%;border-collapse:collapse;min-width:720px;font-size:14px}
+.kill-tbl thead{background:var(--red);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+.kill-tbl th{padding:14px 16px;text-align:left;font-weight:600;border-right:1px solid rgba(255,255,255,0.2)}
+.kill-tbl th:last-child{border-right:none}
+.kill-tbl tr{border-bottom:1px solid var(--grid)}
+.kill-tbl td{padding:16px;border-right:1px solid var(--grid);vertical-align:top;line-height:1.45}
+.kill-tbl td:last-child{border-right:none}
+.kill-tbl .dl{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ink);white-space:nowrap}
+.kill-tbl .fallback{color:#444;font-size:13px}
+
+/* CTA */
+.cta-block{background:var(--ink);color:#fff;padding:48px;border:3px solid var(--red);margin-top:40px;text-align:center}
+.cta-block h3{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;margin-bottom:16px;letter-spacing:-0.02em;line-height:1.05}
+.cta-block h3 .red{color:var(--red)}
+.cta-block p{font-size:17px;line-height:1.5;max-width:640px;margin:0 auto 24px;color:#ddd}
+.cta-block .btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;padding:14px 28px;letter-spacing:0.04em;text-transform:uppercase;transition:transform 0.1s}
+.cta-block .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--red)}
+.cta-block .meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:#666;margin-top:20px;letter-spacing:0.04em}
+
+/* FOOTER */
+footer{background:var(--ink);color:#fff;padding:48px 0}
+footer h5{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:12px}
+footer p{font-size:14px;line-height:1.55;color:#ccc;max-width:680px}
+footer a{color:#fff;text-decoration:none;border-bottom:1px solid #444}
+footer a:hover{border-color:var(--red);color:var(--red)}
+.foot-by{margin-top:32px;padding-top:24px;border-top:1px solid #333;font-family:'JetBrains Mono',monospace;font-size:12px;color:#666;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media (max-width:900px){
+  .wrap{padding:0 20px}
+  .flow{grid-template-columns:1fr}
+  .flow-step{border-right:none;border-bottom:2px solid var(--ink)}
+  .flow-step:last-child{border-bottom:none}
+  .panel-grid{grid-template-columns:1fr}
+  .expert{border-right:none}
+  .expert:nth-last-child(-n+2){border-bottom:2px solid var(--ink)}
+  .expert:last-child{border-bottom:none}
+  .pivot{grid-template-columns:60px 1fr}
+  .pivot-num{font-size:36px}
+}
+</style>
+</head>
+<body>
+
+<!-- TAPE -->
+<div class="tape">
+  <div class="tape-track">
+    <span>Strategy Brainstorm v1</span>
+    <span>13 мая 2026</span>
+    <span>6 экспертов · Codex adversarial · 5 пивотов</span>
+    <span><a href="./">← к ГПУ-бенчмарку</a></span>
+    <span><a href="./game.html">► GPU Jumper</a></span>
+    <span>Strategy Brainstorm v1</span>
+    <span>13 мая 2026</span>
+    <span>6 экспертов · Codex adversarial · 5 пивотов</span>
+    <span><a href="./">← к ГПУ-бенчмарку</a></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="crumb">📍 <a href="./">gpu-logistics</a> / strategy-brainstorm</div>
+    <div class="kicker"><span class="dot"></span>Brainstorm log · 13 мая 2026</div>
+    <h1 class="hero-title">
+      Куда идти<br>с этим <span class="red">импортом</span> в Q3.
+    </h1>
+    <p class="hero-lead">
+      Продолжение после <a href="./" style="color:var(--red);text-decoration:underline">ГПУ-бенчмарка</a>. <strong>6 экспертов разобрали</strong> вопрос «в каком направлении развивать бизнес поставок в РФ Q3 2026», потом <strong>Codex прошёлся adversarial</strong> и нашёл 5 дыр, на каждую — конкретный пивот с дедлайном и kill-критерием.
+    </p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h4>Панель</h4>
+        <p>6 ролей: Стратег, Маркет-ресёрчер, Юрист по санкциям, Логист, Геополитик, Sales/GTM. У каждого свой bias, своё «open question».</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h4>Codex атака</h4>
+        <p>Independent review плана с verdict <span class="tag" style="background:#ff7a00">needs-attention</span> · 1 critical + 4 high. Атака на цифры, юр.оптимизм, спрос Q3.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h4>Пивоты</h4>
+        <p>Под каждое замечание — конкретное действие с дедлайном 1-14 дней. Плюс kill-criteria если шаг не закрывается вовремя.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PANEL -->
+<section id="panel">
+  <div class="wrap">
+    <div class="sec-label">01 · Экспертная панель</div>
+    <h2>Шесть углов зрения<br>на один вопрос.</h2>
+    <p class="sec-lead">Каждый эксперт смотрит со своей предвзятости. Стратег за elegance, юрист за zero-trust, sales за пайплайн. Цель — выявить конфликты, а не консенсус.</p>
+
+    <div class="panel-grid">
+
+      <div class="expert">
+        <div class="role">🧭 Стратег</div>
+        <h3>Не конкурируй с логистами.<br>Стань AI-сервисом для них.</h3>
+        <div class="block"><div class="block-lbl">Assessment</div><div class="block-val">Брокер логистики ГПУ — рабочая ниша, но scale-лимит €30-50k/год при 20 юнитах. Чтобы попасть в $20k/мес — broader SKU или переход в info/consulting.</div></div>
+        <div class="block"><div class="block-lbl">Open question</div><div class="block-val">Готов ли Тим продавать B2B-русский рынок при усложнённых TR↔RU платежах?</div></div>
+        <div class="rec">Тим = AI-импорт-агент для среднего русского B2B. Не возит — соединяет, контролирует, берёт сервисную комиссию.</div>
+      </div>
+
+      <div class="expert">
+        <div class="role">📊 Маркет-ресёрчер</div>
+        <h3>ГПУ → ДЦ → CNC<br>в этом порядке.</h3>
+        <div class="block"><div class="block-lbl">Топ-сектор Q3</div><div class="block-val">Распределённая генерация (тарифы РСО + own-power у дата-центров + отопит. сезон) — звёздная маржа, низкие санкции-риски.</div></div>
+        <div class="block"><div class="block-lbl">Risk</div><div class="block-val">Минпромторг сокращает перечень параллель-импорта — окно может закрыться к Q4.</div></div>
+        <div class="rec">Фокус ГПУ + ДЦ-инфра + CNC-станки. Все три — B2B с чеком €200k+, готовые платить за «под ключ».</div>
+      </div>
+
+      <div class="expert">
+        <div class="role">⚖️ Юрист по санкциям</div>
+        <h3>Главная угроза —<br>вторичные санкции на TR.</h3>
+        <div class="block"><div class="block-lbl">Risks</div><div class="block-val">US BIS Entity List на TR-компании, EU 14-й пакет криминализировал sanctions circumvention, TR MASAK усиливает давление.</div></div>
+        <div class="block"><div class="block-lbl">Open question</div><div class="block-val">Тим готов «легально но граница серая» или 100% clean?</div></div>
+        <div class="rec">НЕ касаться dual-use (CNC 5+ осей, чипы, авионика). Только civilian goods.</div>
+      </div>
+
+      <div class="expert">
+        <div class="role">🚚 Логист</div>
+        <h3>Прямой DE→RU мёртв.<br>80% потока — Турция.</h3>
+        <div class="block"><div class="block-lbl">Маршруты</div><div class="block-val">TR (Стамбул/Мерсин → Новороссийск) — 80%. KZ — ж/д для тяжёлого. AE — high-value low-volume.</div></div>
+        <div class="block"><div class="block-lbl">Платёжный риск</div><div class="block-val">TR-банки начали блокировать платежи с feb 2025. Нужен либо двойной контракт через 3-ю страну, либо альтернативный rail.</div></div>
+        <div class="rec">Партнёрство с топ-3 бенча (Major + БЭСТ ДИАЛС + ИмЭксПартнёр) на 10-20% агентских.</div>
+      </div>
+
+      <div class="expert">
+        <div class="role">🌍 Геополитик</div>
+        <h3>Q3 = окно.<br>Закрыть лиды до сезонной просадки.</h3>
+        <div class="block"><div class="block-lbl">Сценарии Q3</div><div class="block-val">Base 60%: статус-кво. Squeeze 25%: новый US пакет +15-25% издержек. Escalation 10%: TR подписывает sanctions alignment с ЕС.</div></div>
+        <div class="block"><div class="block-lbl">Risk</div><div class="block-val">Курс рубля Q3 исторически проседает (бюджетный фактор) — объём заказов падает в августе.</div></div>
+        <div class="rec">Активный outreach июнь-июль, контракты к 15 июля, исполнение август-сентябрь.</div>
+      </div>
+
+      <div class="expert">
+        <div class="role">💼 Sales/GTM</div>
+        <h3>Cold outreach не работает.<br>Контент + личный бренд.</h3>
+        <div class="block"><div class="block-lbl">Каналы</div><div class="block-val">B2B-русский клиент со средним чеком €200k+ покупает через личные связи, тендеры, контент для C-level.</div></div>
+        <div class="block"><div class="block-lbl">Минус Тима</div><div class="block-val">Антaлья, без офиса в РФ. Конкуренты в Москве с шоурумами и обедами.</div></div>
+        <div class="rec">2 канала: direct outreach в техотделы через HH + контент-лендинги под кейсы (повтор паттерна gpu-logistics для 5 ниш в Q3).</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section id="sectors">
+  <div class="wrap">
+    <div class="sec-label">02 · Сектора Q3</div>
+    <h2>Какие <span class="red">отрасли</span><br>тащут спрос.</h2>
+    <p class="sec-lead">Шорт-лист после фильтра по «низкий sanctions-риск × готовность платить за сервис × B2B-чек €200k+». Топ-3 — отдельная фокус-полоса, остальные — backup направления.</p>
+
+    <div class="sector-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Сектор</th>
+            <th>Драйвер Q3 2026</th>
+            <th>Sanctions-сложность</th>
+            <th>Маржа брокера</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="focus">
+            <td><strong>Распределённая генерация (ГПУ, ДГУ, ВИЭ)</strong><span class="tag">FOCUS #1</span></td>
+            <td>Тарифы РСО, дата-центры на own-power, отопит. сезон</td>
+            <td>Низкая</td>
+            <td><span class="stars">★★★★<span class="off">★</span></span></td>
+          </tr>
+          <tr class="focus">
+            <td><strong>Дата-центр инфраструктура (UPS, Vertiv/Schneider)</strong><span class="tag">FOCUS #2</span></td>
+            <td>AI-инфра бум, Сбер/Яндекс/Селектел расширяются</td>
+            <td>Низкая</td>
+            <td><span class="stars">★★★★<span class="off">★</span></span></td>
+          </tr>
+          <tr class="focus">
+            <td><strong>Металлообрабатывающие CNC-станки</strong><span class="tag">FOCUS #3</span></td>
+            <td>Дефицит после ухода DMG Mori / Mazak</td>
+            <td>Средняя</td>
+            <td><span class="stars">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td>С/х техника John Deere / CLAAS</td>
+            <td>Уборочная авг-окт, разгар спроса</td>
+            <td>Средняя</td>
+            <td><span class="stars">★★★<span class="off">★★</span></span></td>
+          </tr>
+          <tr>
+            <td>Строй/спецтехника Liebherr / Komatsu</td>
+            <td>Госстройки + новые регионы</td>
+            <td>Высокая</td>
+            <td><span class="stars">★★★<span class="off">★★</span></span></td>
+          </tr>
+          <tr>
+            <td>Медтехника (МРТ, КТ, расходники)</td>
+            <td>Старение фонда больниц</td>
+            <td>Высокая (Росздравнадзор)</td>
+            <td><span class="stars">★★<span class="off">★★★</span></span></td>
+          </tr>
+          <tr>
+            <td>Автозапчасти OE</td>
+            <td>Постоянный фон</td>
+            <td>Низкая</td>
+            <td><span class="stars">★<span class="off">★★★★</span></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CODEX -->
+<section id="codex">
+  <div class="wrap">
+    <div class="sec-label">03 · Codex adversarial review</div>
+    <h2>Independent AI-критика<br>вернулась с <span class="red">5 дырами.</span></h2>
+    <p class="sec-lead">После того как панель свела план, его прогнали через Codex в adversarial-режиме: задача — не помочь, а атаковать каждое допущение со ссылками на первоисточники.</p>
+
+    <div class="codex-banner">
+      <div>
+        <div class="stamp">OpenAI Codex · adversarial review</div>
+        <div class="verdict">needs-attention</div>
+      </div>
+      <div class="verd-body">
+        «Не шиппить: план продаёт <strong>санкционный</strong>, <strong>платёжный</strong> и <strong>unit-economics</strong> риск как путь к $20k/мес, но ключевые числа не подтверждены источниками, юридическая конструкция не защищает, а спрос Q3 не доказан.»
+      </div>
+    </div>
+
+    <!-- F1 -->
+    <div class="finding">
+      <div class="finding-head">
+        <h4>TR agent is not a shield</h4>
+        <span class="sev critical">CRITICAL</span>
+      </div>
+      <div class="finding-body">
+        <p>Трактовка «TR Ltd. Şti. + агентская комиссия + отказ от dual-use = защита» — опасный юридический оптимизм. EU Regulation 833/2014 прямо определяет brokering как организацию сделок поставки и запрещает прямые/косвенные brokering / technical assistance для ряда Russia-use категорий.</p>
+        <p>14-й пакет EU усилил anti-circumvention и due diligence по third-country re-export. BIS в 2025 добавлял турецкие компании в Entity List за diversion U.S.-origin items to Russia. OFAC FAQ 1181 расширяет риск для финансовых посредников вокруг Russia military-industrial base.</p>
+        <p>В плане нет ECCN/CN/HS-классификации, end-use/end-user screening, SDN/Entity List checks, beneficial ownership checks, no-reexport clauses или письменного sanctions opinion.</p>
+        <div class="rec-box"><strong>Recommendation:</strong> Заблокировать выполнение до sanctions counsel memo: SKU whitelist/blacklist с ECCN/CN/HS, проверка parallel-import eligibility по брендам, end-user questionnaire, screening workflow, contractual reps, audit trail, письменное заключение по TR Ltd/RU partner flow.</div>
+        <div class="refs">📎 <a href="https://eur-lex.europa.eu/eli/reg/2014/833/2026-04-24/eng" target="_blank">EU 833/2014</a> · <a href="https://www.consilium.europa.eu/en/press/press-releases/2024/06/24/" target="_blank">EU 14-й пакет</a> · <a href="https://www.federalregister.gov/documents/full_text/html/2025/09/16/2025-17893.html" target="_blank">BIS 2025 enforcement</a> · <a href="https://ofac.treasury.gov/faqs/1181" target="_blank">OFAC FAQ 1181</a></div>
+      </div>
+    </div>
+
+    <!-- F2 -->
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Unit economics do not close</h4>
+        <span class="sev high">HIGH</span>
+      </div>
+      <div class="finding-body">
+        <p>Заявлены €1-2k service fee + 10-15% агентских и цель $20k/мес. Но цель Q3 — 3-5 сделок и €4.5-10k чистой за квартал. Это €1.5-3.3k/мес, не $20k/мес. По €1-2k за сделку нужно 10-20 сделок в месяц.</p>
+        <p>База комиссии не определена: от стоимости оборудования? фрахта? gross margin логиста? net profit? Обычные freight brokerage benchmarks — margin/commission на gross margin, а не гарантированные 10-15% плюс отдельное fee. Арифметика не подтверждена источниками.</p>
+        <div class="rec-box"><strong>Recommendation:</strong> Deal-level P&L: equipment value, freight/customs value, gross margin логиста, точная база referral fee, payment terms, close rate, cadence сделок. Получить письменные rate cards от названных логистов.</div>
+        <div class="refs">📎 <a href="https://www.atsinc.com/blog/how-freight-brokerages-make-money-explained" target="_blank">Freight brokerage economics</a> · <a href="https://logistics.chaineapp.com/truckload-market/players/freight-brokers/freight-broker-commission-percent/" target="_blank">Broker commission benchmarks</a></div>
+      </div>
+    </div>
+
+    <!-- F3 -->
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Payment rail is broken</h4>
+        <span class="sev high">HIGH</span>
+      </div>
+      <div class="finding-body">
+        <p>Предложен Wise + Garanti/İş Bankası, хотя сам план признаёт блокировки TR-банков. Это не mitigation, а failure point. Wise официально пишет: для personal/business accounts с registered address in Türkiye ограничения на получение денег; входящие платежи могут возвращаться.</p>
+        <p>Reuters сообщал что Turkish-Russian trade payments замедлены из-за US secondary sanctions risk. План не описывает receivables/payables waterfall, fallback bank, bank pre-clearance, escrow/netting и сценарий когда buyer платит RU partner, но комиссия TR Ltd не проходит.</p>
+        <div class="rec-box"><strong>Recommendation:</strong> До outreach получить bank pre-clearance на точный поток: payer, beneficiary, invoice wording, HS/ECCN, origin, end-user. Убрать Wise. Описать escrow/netting/commission remittance.</div>
+        <div class="refs">📎 <a href="https://wise.com/help/articles/18ewShSmFf7tJ7mm2Zp6H7/restrictions-for-customers-based-in-turkiye" target="_blank">Wise TR restrictions</a> · <a href="https://reutersbest.com/turkish-russian-trade-hit-by-fresh-us-sanctions-threat/" target="_blank">Reuters: TR-RU payments</a></div>
+      </div>
+    </div>
+
+    <!-- F4 -->
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Q3 demand is not proven</h4>
+        <span class="sev high">HIGH</span>
+      </div>
+      <div class="finding-body">
+        <p>Драйверы Q3 (тарифы РСО, дата-центры, отопит. сезон) — таймингово неверны для электроэнергии: распоряжение РФ 3081-р задаёт периоды 1 января-30 сентября и 1 октября-31 декабря 2026, т.е. индексация — уже после Q3.</p>
+        <p>Дата-центры дают macro demand, но источники одновременно говорят о дефиците мощностей, отказах подключения в Москве и регуляторных барьерах — это задерживает проекты, а не создаёт быстрый Q3 спрос на нового брокера.</p>
+        <p>План идёт в лендинги/outreach/первая сделка без предварительных RFQ/LOI. Это macro narrative, не market validation.</p>
+        <div class="rec-box"><strong>Recommendation:</strong> Переставить validation перед контентом: 20-30 buyer calls, 3 signed LOI или paid discovery, named SKU list, delivery windows, доказательство что Q3 delivery критичен для покупателя.</div>
+        <div class="refs">📎 <a href="https://www.garant.ru/products/ipo/prime/doc/412867111/" target="_blank">Распоряжение РФ 3081-р</a> · <a href="https://market.cnews.ru/news/top/2026-02-20_data-tsentry_dlya_ii_v_rossii" target="_blank">CNews: дата-центры РФ 2026</a></div>
+      </div>
+    </div>
+
+    <!-- F5 -->
+    <div class="finding">
+      <div class="finding-head">
+        <h4>RU partner is unresolved</h4>
+        <span class="sev high">HIGH</span>
+      </div>
+      <div class="finding-body">
+        <p>Российский партнёр-юрлицо — часть operating model, но в open items: «неизвестно кто принимает рубли и оформляет таможню». Это не open item, а центральная trust boundary.</p>
+        <p>Без vetted RU counterparty нельзя контролировать client ownership, customs liability, payment flow, non-circumvention и риск что логист/партнёр обойдёт Тима после первого интро. Плюс не смоделированы репутационный риск и Turkish CIT/WHT/worldwide-income treatment (TR-резиденты облагаются по worldwide income, ставка CIT 25%).</p>
+        <div class="rec-box"><strong>Recommendation:</strong> Партнёр = gate condition. Shortlist 3 RU entities, KYC/ownership/sanctions checks, договор с non-circumvention, client ownership, audit rights, payment waterfall, customs responsibility, dispute forum. Отдельный Turkey tax memo.</div>
+        <div class="refs">📎 <a href="https://taxsummaries.pwc.com/turkey/corporate/taxes-on-corporate-income" target="_blank">PwC Turkey CIT</a> · <a href="https://taxsummaries.pwc.com/turkey/individual/taxes-on-personal-income" target="_blank">PwC Turkey personal tax</a></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PIVOTS -->
+<section id="pivots">
+  <div class="wrap">
+    <div class="sec-label">04 · Пять пивотов под замечания Codex</div>
+    <h2>На каждую дыру —<br>конкретное <span class="red">действие.</span></h2>
+    <p class="sec-lead">Не «выбор между опциями», а параллельная работа по 5+1 направлениям с дедлайнами 1-14 дней. У каждого пивота — kill-criteria в следующей секции, чтобы не уйти в бесконечный пилот.</p>
+
+    <div class="pivot">
+      <div class="pivot-num">1</div>
+      <div class="pivot-body">
+        <div class="target">→ закрывает Critical #1 (Sanctions shield)</div>
+        <h4>Sanctions opinion от TR-юриста за $500-1,500 / 5 дней</h4>
+        <p>Через CKAY или Şirket'imiz (Anadolu). Параллельно — civilian-only SKU whitelist: ГПУ &lt;2 МВт без OEM из US BIS list (исключить Caterpillar US-origin, оставить MWM Mannheim, MTU Friedrichshafen non-US-parts, Wärtsilä), стройтехника Komatsu EU-origin, не-dual-use CNC ≤3 осей.</p>
+        <span class="deadline">DEADLINE: 25 мая</span>
+      </div>
+    </div>
+
+    <div class="pivot">
+      <div class="pivot-num">2</div>
+      <div class="pivot-body">
+        <div class="target">→ закрывает High #2 (Unit economics)</div>
+        <h4>Письменные rate cards у 3 логистов на этой неделе</h4>
+        <p>Сообщения из секции 03 ГПУ-сайта уже готовы. Параллельно — 30-минутный разговор с freight-broker-фрилансером на Upwork/Profi.ru для калибровки моделей (€100/сессия). Закрытая Google Sheet с три-сценарной экономикой: equipment value × freight % × commission base × close rate.</p>
+        <span class="deadline">DEADLINE: 28 мая</span>
+      </div>
+    </div>
+
+    <div class="pivot">
+      <div class="pivot-num">3</div>
+      <div class="pivot-body">
+        <div class="target">→ закрывает High #3 (Payment rail)</div>
+        <h4>Личный визит в Garanti Antalya + параллельный KZ-account</h4>
+        <p>Тим в Каше, до Антальи 200 км. Идёт в банк с готовым кейсом: «TR Ltd. получает agency fee от RU LLC в евро, объём X к/мес, инвойс wording = consulting + brokerage». Просьба о pre-clearance LOI. Параллельно — открыть KZ-аккаунт в Halyk или Kaspi Business через KZ-номади за €500 setup (fallback rail без переезда).</p>
+        <span class="deadline">DEADLINE: 10 июня</span>
+      </div>
+    </div>
+
+    <div class="pivot">
+      <div class="pivot-num">4</div>
+      <div class="pivot-body">
+        <div class="target">→ закрывает High #4 (Q3 demand validation)</div>
+        <h4>20 buyer-calls за 14 дней через 3 канала</h4>
+        <p>(a) Тематические TG-чаты энергетиков (@energo, @datacenters_russia); (b) outreach-hh по техдиректорам энергопредприятий; (c) Twenty CRM выгрузка существующих 665 компаний → фильтр energy/datacenter → cold call. KPI 1 июня: 3 RFQ/LOI на руках. Не сходится — пивот через ту же воронку на CNC / Vertiv DC infra / с/х.</p>
+        <span class="deadline">DEADLINE: 1 июня</span>
+      </div>
+    </div>
+
+    <div class="pivot">
+      <div class="pivot-num">5</div>
+      <div class="pivot-body">
+        <div class="target">→ закрывает High #5 (RU partner)</div>
+        <h4>Shortlist 3 RU-партнёра к 20 мая</h4>
+        <p>(a) Балашов — сегодня созвонились, отправлен сайт, прощупать на TG-видео; (b) один из существующих контактов с рос. юрлицом (МентaлСтаб → Катя, КРМКТЛ-сеть через крипто-сервисы); (c) cold через outreach-hh — найти ВЭД-менеджера готового на агентский side-gig. До подписания pilot-NDA с одним — никакой outreach под «партнёрством».</p>
+        <span class="deadline">DEADLINE: 20 мая</span>
+      </div>
+    </div>
+
+    <div class="pivot">
+      <div class="pivot-num">6</div>
+      <div class="pivot-body">
+        <div class="target">→ bonus, закрывает gap в TR-tax модели</div>
+        <h4>TR CPA consultation на 30 мин</h4>
+        <p>Через CKAY ~€80. Сценарии: (a) дивиденды из TR Ltd. — 15% WHT + 25% CIT; (b) Service Export 80%-льгота — применима ли к brokerage? Письменная клиринговая записка от accountant'a — не догадки панели.</p>
+        <span class="deadline">DEADLINE: 22 мая</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KILL CRITERIA -->
+<section id="kill">
+  <div class="wrap">
+    <div class="sec-label">05 · Kill criteria</div>
+    <h2>Если шаг <span class="red">не закрывается</span><br>в дедлайн — план пивотируется.</h2>
+    <p class="sec-lead">Без явных stop-критериев пилот превращается в бесконечный prep. Каждая строка — это условие «GO/NO-GO» с конкретной альтернативой если идём в NO-GO.</p>
+
+    <div class="kill-tbl">
+      <table>
+        <thead>
+          <tr>
+            <th>Условие GO</th>
+            <th>Дедлайн</th>
+            <th>Fallback при NO-GO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sanctions memo подписан TR-юристом</strong></td>
+            <td class="dl">25 мая</td>
+            <td class="fallback">Сузить SKU до полностью гражданского сегмента (FMCG / медрасходники), пересмотреть scope</td>
+          </tr>
+          <tr>
+            <td><strong>≥1 рос. партнёр подписал pilot-NDA</strong></td>
+            <td class="dl">5 июня</td>
+            <td class="fallback">Pivot к pure-consulting модель: продавать research, не сделку</td>
+          </tr>
+          <tr>
+            <td><strong>≥3 RFQ/LOI от рос. покупателей</strong></td>
+            <td class="dl">15 июня</td>
+            <td class="fallback">Upstream pivot: продавать AI-bench-сервис самим логистам как lead-source</td>
+          </tr>
+          <tr>
+            <td><strong>Bank pre-clearance LOI</strong></td>
+            <td class="dl">10 июня</td>
+            <td class="fallback">Переезд комиссионного потока в KZ-структуру (Halyk Bank / Kaspi)</td>
+          </tr>
+          <tr>
+            <td><strong>Письменные rate cards от ≥1 логиста</strong></td>
+            <td class="dl">28 мая</td>
+            <td class="fallback">Брать публичные ставки + 20% накрутка, фиксировать в первой сделке</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cta-block">
+      <h3>Следующий <span class="red">конкретный</span> шаг</h3>
+      <p>Самый узкий гейт сейчас — <strong>sanctions memo от TR-юриста</strong>. Без него остальные ветки строятся на догадках. После — параллельный запуск пивотов #2-#6.</p>
+      <a href="./" class="btn">← вернуться к ГПУ-бенчмарку</a>
+      <div class="meta">v1.0 · 13 мая 2026 · Brainstorm by Claude · Adversarial by OpenAI Codex</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <h5>ГПУ Logistics Strategy Brainstorm</h5>
+    <p>Часть проекта <a href="./">gpu-logistics</a>. Документ — внутренний мозговой штурм для оценки направления бизнеса по импорту оборудования в РФ. Не оферта, не юридическое заключение. Все санкционные риски — для калибровки; для принятия решений нужен sanctions counsel.</p>
+    <div class="foot-by">
+      <span>13.05.2026 · <a href="https://timzinin.com">timzinin.com/gpu-logistics</a></span>
+      <span>Brainstorm: Claude Opus 4.7 · Adversarial: OpenAI Codex</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
