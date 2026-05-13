@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPU Jumper · Предприниматель прыгает по ГПУ за деньгами</title>
+<meta name="description" content="HTML5-аркада: предприниматель прыгает по газопоршневым установкам, собирает деньги, уклоняется от налоговой.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#fafaf7;font-family:'Inter',system-ui,sans-serif;overflow:hidden}
+:root{--red:#E10600;--ink:#0a0a0a}
+#wrap{
+  width:100vw;height:100vh;
+  display:flex;flex-direction:column;
+  background:#fafaf7;
+}
+#topbar{
+  background:var(--ink);color:#fff;
+  padding:12px 24px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:3px solid var(--red);
+  font-family:'JetBrains Mono','Menlo',monospace;font-size:13px;
+  font-weight:600;letter-spacing:0.04em;
+}
+#topbar .logo{color:var(--red)}
+#topbar a{color:#fff;text-decoration:none;border-bottom:1px dotted #666}
+#topbar a:hover{color:var(--red);border-color:var(--red)}
+#gameWrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+canvas{
+  display:block;
+  background:#fff;
+  border:3px solid var(--ink);
+  image-rendering:pixelated;
+  max-width:100%;max-height:100%;
+  box-shadow:0 0 0 1px var(--red);
+}
+#overlay{
+  position:absolute;
+  inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.modal{
+  background:#fff;
+  border:3px solid var(--ink);
+  padding:32px 40px;
+  text-align:center;
+  pointer-events:auto;
+  max-width:480px;
+  box-shadow:8px 8px 0 var(--red);
+}
+.modal h1{
+  font-family:'Space Grotesk','Inter',sans-serif;
+  font-size:42px;line-height:0.95;
+  letter-spacing:-0.02em;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.modal h1 .red{color:var(--red)}
+.modal p{font-size:15px;line-height:1.5;color:#333;margin:16px 0}
+.modal .btn{
+  background:var(--red);color:#fff;border:none;
+  padding:14px 32px;font-weight:700;font-size:15px;
+  cursor:pointer;letter-spacing:0.04em;
+  text-transform:uppercase;
+  font-family:'JetBrains Mono',monospace;
+  margin-top:12px;
+  transition:transform 0.1s;
+}
+.modal .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.modal .hint{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:#666;
+  margin-top:16px;letter-spacing:0.04em;
+}
+.modal .hint kbd{
+  display:inline-block;
+  background:var(--ink);color:#fff;
+  padding:2px 6px;border-radius:3px;
+  margin:0 2px;font-size:11px;
+}
+.hidden{display:none !important}
+.bigscore{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:64px;font-weight:700;color:var(--red);
+  line-height:1;margin:12px 0;
+}
+#hud{
+  position:absolute;top:60px;left:24px;right:24px;
+  display:flex;justify-content:space-between;
+  pointer-events:none;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;font-size:18px;
+  color:var(--ink);
+  z-index:5;
+}
+.hud-cell{background:rgba(255,255,255,0.92);padding:6px 12px;border:2px solid var(--ink)}
+.hud-cell .lbl{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.08em;display:block}
+.hud-cell .val{font-size:22px;color:var(--ink)}
+.hud-cell.money .val{color:var(--red)}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="topbar">
+    <div><span class="logo">●</span> GPU JUMPER · предприниматель vs налоговая</div>
+    <div><a href="./">← к бенчмарку</a></div>
+  </div>
+  <div id="gameWrap">
+    <canvas id="game" width="960" height="540"></canvas>
+    <div id="hud" class="hidden">
+      <div class="hud-cell money"><span class="lbl">€ ДЕНЕГ</span><span class="val" id="hudMoney">0</span></div>
+      <div class="hud-cell"><span class="lbl">ЖИЗНИ</span><span class="val" id="hudLives">3</span></div>
+      <div class="hud-cell"><span class="lbl">МЕТРЫ</span><span class="val" id="hudDist">0</span></div>
+    </div>
+    <div id="overlay">
+      <div class="modal" id="modalStart">
+        <h1>GPU<br><span class="red">JUMPER</span></h1>
+        <p>Ты — предприниматель в Подмосковье. Прыгаешь по только что доставленным <strong>газопоршневым установкам</strong>, собираешь <strong style="color:var(--red)">евро</strong> и уклоняешься от налоговой инспекции и санкционных шлагбаумов.</p>
+        <p>Падаешь между ГПУ — теряешь жизнь. Дотрагиваешься до инспектора — теряешь жизнь. Деньги дают +1 € к балансу.</p>
+        <button class="btn" id="btnStart">START</button>
+        <div class="hint">Управление: <kbd>SPACE</kbd> или <kbd>↑</kbd> — прыжок · <kbd>SPACE×2</kbd> — двойной прыжок</div>
+      </div>
+      <div class="modal hidden" id="modalEnd">
+        <h1>GAME<br><span class="red">OVER</span></h1>
+        <p>Заработано:</p>
+        <div class="bigscore" id="finalMoney">€ 0</div>
+        <p id="finalRemark">Налоги съели стартап.</p>
+        <button class="btn" id="btnRestart">ЕЩЁ РАЗ</button>
+        <div class="hint">Или <kbd>R</kbd> — перезапуск</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+const cvs = document.getElementById('game');
+const ctx = cvs.getContext('2d');
+const W = cvs.width, H = cvs.height;
+
+const COLORS = {
+  red:'#E10600', redDark:'#a30400', ink:'#0a0a0a',
+  bone:'#fafaf7', white:'#fff', gray:'#888',
+  green:'#0a5d2a', yellow:'#ffd400'
+};
+
+// State
+let state = 'menu'; // menu, play, over
+let money = 0, lives = 3, dist = 0;
+let speed = 4; // px/frame world scroll
+const baseSpeed = 4;
+
+// Player — entrepreneur, simple stick figure with suit
+const player = {
+  x: 200, y: 350, vy: 0, w: 28, h: 48,
+  onGround: false, jumpCount: 0, maxJumps: 2,
+  animFrame: 0
+};
+
+// Ground level baseline
+const GROUND_Y = H - 80;
+
+// Platforms (ГПУ units)
+let platforms = [];
+let coins = [];
+let enemies = []; // tax inspectors + barriers
+let particles = [];
+
+function reset(){
+  money = 0; lives = 3; dist = 0; speed = baseSpeed;
+  player.x = 200; player.y = GROUND_Y - 100; player.vy = 0;
+  player.onGround = false; player.jumpCount = 0;
+  platforms = [];
+  coins = [];
+  enemies = [];
+  particles = [];
+  // initial platform under player
+  platforms.push(makePlatform(150, GROUND_Y, 180));
+  platforms.push(makePlatform(450, GROUND_Y, 160));
+  platforms.push(makePlatform(720, GROUND_Y, 180));
+  spawnCoinsOn(platforms[1], 3);
+  updateHud();
+}
+
+function makePlatform(x, y, w){
+  const power = ['1 МВт','1.5 МВт','2 МВт','3 МВт','4 МВт'][(Math.random()*5)|0];
+  const brand = ['MWM','MTU','MAN','Wärtsilä','Cummins'][(Math.random()*5)|0];
+  return {x, y, w, h: 56, label: brand + ' ' + power, type:'gpu'};
+}
+
+function spawnCoinsOn(plat, n){
+  if(!plat) return;
+  const gap = plat.w / (n+1);
+  for(let i=1; i<=n; i++){
+    coins.push({x: plat.x + gap*i, y: plat.y - 30 - Math.random()*40, taken:false, t: Math.random()*Math.PI*2});
+  }
+}
+
+function spawnEnemyNear(plat){
+  if(!plat || Math.random() > 0.55) return;
+  // half chance: inspector standing on platform (red briefcase)
+  // half chance: floating санкционный barrier
+  if(Math.random() < 0.55){
+    enemies.push({x: plat.x + plat.w/2, y: plat.y - 44, w: 22, h: 44, type:'inspector', vy:0});
+  } else {
+    enemies.push({x: plat.x + plat.w + 80 + Math.random()*60, y: plat.y - 80 - Math.random()*60, w:34, h:34, type:'barrier', vy:0});
+  }
+}
+
+// Drawing
+function drawPlayer(){
+  const x = player.x, y = player.y;
+  // animate when on ground (subtle leg shift)
+  const t = player.animFrame * 0.25;
+  ctx.save();
+  // body (suit jacket — red, classic Tim brand)
+  ctx.fillStyle = COLORS.red;
+  ctx.fillRect(x+4, y+14, 20, 22);
+  // shirt collar
+  ctx.fillStyle = COLORS.white;
+  ctx.fillRect(x+11, y+14, 6, 8);
+  // head
+  ctx.fillStyle = '#f5d6b8';
+  ctx.fillRect(x+6, y, 16, 14);
+  // hair
+  ctx.fillStyle = COLORS.ink;
+  ctx.fillRect(x+6, y, 16, 4);
+  // eyes
+  ctx.fillStyle = COLORS.ink;
+  ctx.fillRect(x+10, y+6, 2, 2);
+  ctx.fillRect(x+16, y+6, 2, 2);
+  // legs (pants)
+  ctx.fillStyle = COLORS.ink;
+  if(player.onGround){
+    const sway = Math.sin(t)*2;
+    ctx.fillRect(x+5, y+36, 7, 12+sway);
+    ctx.fillRect(x+16, y+36, 7, 12-sway);
+  } else {
+    // jumping pose
+    ctx.fillRect(x+5, y+34, 7, 10);
+    ctx.fillRect(x+16, y+36, 7, 12);
+  }
+  // briefcase (small)
+  ctx.fillStyle = '#5b3a1e';
+  ctx.fillRect(x+24, y+24, 8, 10);
+  ctx.fillStyle = COLORS.yellow;
+  ctx.fillRect(x+27, y+27, 2, 1);
+  ctx.restore();
+}
+
+function drawPlatform(p){
+  // gpu unit — container shape
+  const x = p.x, y = p.y, w = p.w, h = p.h;
+  // shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  ctx.fillRect(x+4, y+h, w, 6);
+  // body (red-white container, gpu)
+  ctx.fillStyle = COLORS.white;
+  ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = COLORS.ink;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(x, y, w, h);
+  // red top stripe
+  ctx.fillStyle = COLORS.red;
+  ctx.fillRect(x, y, w, 8);
+  // ridges (container corrugation)
+  ctx.strokeStyle = '#ddd';
+  ctx.lineWidth = 1;
+  for(let i=10; i<w-10; i+=10){
+    ctx.beginPath();
+    ctx.moveTo(x+i, y+12);
+    ctx.lineTo(x+i, y+h-4);
+    ctx.stroke();
+  }
+  // exhaust pipe on top right
+  ctx.fillStyle = COLORS.ink;
+  ctx.fillRect(x+w-22, y-14, 8, 14);
+  ctx.fillStyle = '#aaa';
+  ctx.fillRect(x+w-21, y-15, 6, 3);
+  // label
+  ctx.fillStyle = COLORS.ink;
+  ctx.font = 'bold 11px JetBrains Mono, monospace';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(p.label, x+10, y+h/2+2);
+  // GPU tag
+  ctx.fillStyle = COLORS.red;
+  ctx.fillRect(x+w-46, y+h-20, 40, 14);
+  ctx.fillStyle = COLORS.white;
+  ctx.font = 'bold 10px JetBrains Mono, monospace';
+  ctx.fillText('ГПУ', x+w-39, y+h-12);
+}
+
+function drawCoin(c){
+  if(c.taken) return;
+  c.t += 0.1;
+  const y = c.y + Math.sin(c.t)*4;
+  ctx.save();
+  ctx.translate(c.x, y);
+  // €
+  ctx.fillStyle = COLORS.yellow;
+  ctx.beginPath();
+  ctx.arc(0, 0, 12, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = COLORS.ink;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.fillStyle = COLORS.ink;
+  ctx.font = 'bold 16px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('€', 0, 1);
+  ctx.restore();
+}
+
+function drawEnemy(e){
+  ctx.save();
+  if(e.type === 'inspector'){
+    // tax inspector — black suit, red tie, briefcase with "ФНС"
+    const x=e.x, y=e.y;
+    // body (black suit)
+    ctx.fillStyle = COLORS.ink;
+    ctx.fillRect(x-8, y+14, 16, 22);
+    // shirt
+    ctx.fillStyle = COLORS.white;
+    ctx.fillRect(x-3, y+14, 6, 10);
+    // red tie
+    ctx.fillStyle = COLORS.red;
+    ctx.beginPath();
+    ctx.moveTo(x, y+14); ctx.lineTo(x-2, y+24); ctx.lineTo(x, y+18); ctx.lineTo(x+2, y+24);
+    ctx.closePath(); ctx.fill();
+    // head
+    ctx.fillStyle = '#e8c8a8';
+    ctx.fillRect(x-6, y, 12, 12);
+    // angry eyes
+    ctx.fillStyle = COLORS.red;
+    ctx.fillRect(x-4, y+5, 3, 2);
+    ctx.fillRect(x+1, y+5, 3, 2);
+    // legs
+    ctx.fillStyle = COLORS.ink;
+    ctx.fillRect(x-6, y+36, 5, 8);
+    ctx.fillRect(x+1, y+36, 5, 8);
+    // briefcase
+    ctx.fillStyle = COLORS.red;
+    ctx.fillRect(x-14, y+22, 8, 10);
+    ctx.strokeStyle = COLORS.ink; ctx.lineWidth=2;
+    ctx.strokeRect(x-14, y+22, 8, 10);
+    ctx.fillStyle = COLORS.white;
+    ctx.font = 'bold 7px JetBrains Mono';
+    ctx.textAlign='center';
+    ctx.fillText('ФНС', x-10, y+28);
+  } else {
+    // sanctions barrier - red-white striped
+    const x=e.x, y=e.y;
+    ctx.fillStyle = COLORS.red;
+    ctx.fillRect(x-17, y-17, 34, 34);
+    ctx.fillStyle = COLORS.white;
+    for(let i=0;i<3;i++){
+      ctx.fillRect(x-17, y-17+i*12, 34, 6);
+    }
+    ctx.strokeStyle = COLORS.ink; ctx.lineWidth=3;
+    ctx.strokeRect(x-17, y-17, 34, 34);
+    // stop text
+    ctx.fillStyle = COLORS.ink;
+    ctx.font = 'bold 11px Inter, sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('STOP', x, y+3);
+  }
+  ctx.restore();
+}
+
+function drawBackground(){
+  // sky gradient
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, '#fafaf7');
+  g.addColorStop(1, '#ececea');
+  ctx.fillStyle = g;
+  ctx.fillRect(0,0,W,H);
+
+  // far buildings (factories)
+  ctx.fillStyle = '#ddd';
+  const off = (dist * 0.2) % 200;
+  for(let i=-1;i<W/100+2;i++){
+    const x = i*100 - off;
+    const h = 80 + ((i*37)%50);
+    ctx.fillRect(x, GROUND_Y - h, 60, h);
+    // chimneys
+    ctx.fillRect(x+20, GROUND_Y - h - 20, 8, 22);
+  }
+
+  // mid layer power lines
+  ctx.strokeStyle = '#999';
+  ctx.lineWidth = 1;
+  const off2 = (dist*0.5) % 160;
+  for(let i=-1;i<W/160+2;i++){
+    const x = i*160 - off2;
+    ctx.beginPath();
+    ctx.moveTo(x, GROUND_Y - 100);
+    ctx.lineTo(x, GROUND_Y - 30);
+    ctx.stroke();
+    // pole crossbar
+    ctx.beginPath();
+    ctx.moveTo(x-12, GROUND_Y - 95);
+    ctx.lineTo(x+12, GROUND_Y - 95);
+    ctx.stroke();
+    // wires
+    if(i < W/160+1){
+      ctx.beginPath();
+      ctx.moveTo(x-10, GROUND_Y - 92);
+      ctx.quadraticCurveTo(x+80, GROUND_Y - 82, x+150, GROUND_Y - 92);
+      ctx.stroke();
+    }
+  }
+
+  // ground line
+  ctx.fillStyle = COLORS.ink;
+  ctx.fillRect(0, GROUND_Y + 50, W, 4);
+  // ground dirt
+  ctx.fillStyle = '#a07050';
+  ctx.fillRect(0, GROUND_Y + 54, W, H - GROUND_Y - 54);
+}
+
+function drawParticle(p){
+  ctx.fillStyle = p.color;
+  ctx.fillRect(p.x, p.y, p.size, p.size);
+}
+
+// Loop
+let keysDown = {};
+window.addEventListener('keydown', e=>{
+  if(['Space','ArrowUp','KeyW'].includes(e.code)){
+    e.preventDefault();
+    if(state==='play') tryJump();
+    if(state==='menu' && document.getElementById('modalStart').offsetParent) startGame();
+    if(state==='over') startGame();
+  }
+  if(e.code==='KeyR' && state==='over') startGame();
+  keysDown[e.code] = true;
+});
+window.addEventListener('keyup', e=>{ keysDown[e.code] = false; });
+cvs.addEventListener('pointerdown', ()=>{
+  if(state==='play') tryJump();
+});
+
+function tryJump(){
+  if(player.jumpCount < player.maxJumps){
+    player.vy = player.jumpCount === 0 ? -12 : -10;
+    player.jumpCount++;
+    player.onGround = false;
+    // jump particles
+    for(let i=0;i<6;i++){
+      particles.push({x:player.x+10, y:player.y+48, vx:(Math.random()-0.5)*3, vy:Math.random()*2, life:20, size:3, color:COLORS.gray});
+    }
+  }
+}
+
+function spawnNext(){
+  // spawn a new platform offscreen right when last platform near middle
+  const last = platforms[platforms.length-1];
+  if(!last) return;
+  if(last.x + last.w < W + 200){
+    const gap = 80 + Math.random()*120;
+    const yVar = (Math.random()-0.5)*60;
+    const newY = Math.max(GROUND_Y - 120, Math.min(GROUND_Y + 20, last.y + yVar));
+    const newW = 140 + Math.random()*100;
+    const p = makePlatform(last.x + last.w + gap, newY, newW);
+    platforms.push(p);
+    if(Math.random() < 0.7) spawnCoinsOn(p, 2 + (Math.random()*2|0));
+    spawnEnemyNear(p);
+  }
+}
+
+function update(){
+  if(state !== 'play') return;
+
+  dist += speed * 0.1;
+  // speed up gradually
+  speed = baseSpeed + Math.min(4, dist/200);
+
+  // gravity
+  player.vy += 0.55;
+  if(player.vy > 16) player.vy = 16;
+  player.y += player.vy;
+
+  // animation
+  if(player.onGround) player.animFrame = (player.animFrame+1);
+
+  // scroll world
+  platforms.forEach(p => p.x -= speed);
+  coins.forEach(c => c.x -= speed);
+  enemies.forEach(e => { e.x -= speed; if(e.type==='barrier'){ e.y += Math.sin(dist*0.05 + e.x*0.01)*0.5; } });
+
+  // cleanup
+  platforms = platforms.filter(p => p.x + p.w > -100);
+  coins = coins.filter(c => c.x > -50);
+  enemies = enemies.filter(e => e.x > -50);
+  particles = particles.filter(p => p.life > 0);
+
+  particles.forEach(p=>{
+    p.x += p.vx; p.y += p.vy; p.vy += 0.2; p.life--;
+  });
+
+  // platform collision
+  player.onGround = false;
+  platforms.forEach(p => {
+    if(player.x + player.w > p.x && player.x < p.x + p.w){
+      // landing
+      if(player.vy >= 0 && player.y + player.h >= p.y && player.y + player.h <= p.y + 24){
+        player.y = p.y - player.h;
+        player.vy = 0;
+        player.onGround = true;
+        player.jumpCount = 0;
+      }
+    }
+  });
+
+  // coin collision
+  coins.forEach(c => {
+    if(!c.taken){
+      const dx = c.x - (player.x+14);
+      const dy = c.y - (player.y+24);
+      if(dx*dx + dy*dy < 600){
+        c.taken = true;
+        money++;
+        // confetti
+        for(let i=0;i<10;i++){
+          particles.push({x:c.x, y:c.y, vx:(Math.random()-0.5)*5, vy:-Math.random()*4-1, life:30, size:4, color:Math.random()<0.5?COLORS.yellow:COLORS.red});
+        }
+        updateHud();
+      }
+    }
+  });
+
+  // enemy collision
+  enemies.forEach(e => {
+    if(player.x + player.w > e.x - e.w/2 && player.x < e.x + e.w/2
+      && player.y + player.h > e.y - 4 && player.y < e.y + e.h){
+      // hit
+      e.x = -9999;
+      lives--;
+      // knockback
+      player.vy = -8;
+      // red flash particles
+      for(let i=0;i<15;i++){
+        particles.push({x:player.x+14, y:player.y+24, vx:(Math.random()-0.5)*6, vy:(Math.random()-0.5)*6, life:25, size:3, color:COLORS.red});
+      }
+      updateHud();
+      if(lives <= 0) endGame();
+    }
+  });
+
+  // fell off
+  if(player.y > H){
+    lives--;
+    updateHud();
+    if(lives <= 0){ endGame(); return; }
+    // respawn on first platform
+    player.x = 200;
+    const safe = platforms.find(p=>p.x>50 && p.x<W);
+    player.y = safe ? safe.y - 100 : GROUND_Y - 100;
+    player.vy = 0;
+    player.jumpCount = 0;
+  }
+
+  spawnNext();
+}
+
+function render(){
+  drawBackground();
+  platforms.forEach(drawPlatform);
+  coins.forEach(drawCoin);
+  enemies.forEach(drawEnemy);
+  particles.forEach(drawParticle);
+  drawPlayer();
+
+  if(state==='play'){
+    // pace indicator (top right)
+    ctx.fillStyle = 'rgba(10,10,10,0.7)';
+    ctx.fillRect(W-130, 10, 120, 24);
+    ctx.fillStyle = COLORS.white;
+    ctx.font = 'bold 11px JetBrains Mono, monospace';
+    ctx.textAlign='left';
+    ctx.textBaseline='middle';
+    ctx.fillText('SPEED ' + speed.toFixed(1), W-122, 22);
+  }
+}
+
+function loop(){
+  update();
+  render();
+  requestAnimationFrame(loop);
+}
+
+function updateHud(){
+  document.getElementById('hudMoney').textContent = money;
+  document.getElementById('hudLives').textContent = lives;
+  document.getElementById('hudDist').textContent = (dist*0.3).toFixed(0);
+}
+
+function startGame(){
+  document.getElementById('modalStart').classList.add('hidden');
+  document.getElementById('modalEnd').classList.add('hidden');
+  document.getElementById('hud').classList.remove('hidden');
+  reset();
+  state = 'play';
+}
+
+function endGame(){
+  state = 'over';
+  document.getElementById('hud').classList.add('hidden');
+  document.getElementById('finalMoney').textContent = '€ ' + money;
+  let remark = 'Налоги съели стартап.';
+  if(money >= 50) remark = 'Ты построил энергетическую империю. Welcome to ТОП.';
+  else if(money >= 30) remark = 'Серия А поднята. Дальше — Газпром.';
+  else if(money >= 15) remark = 'На первый офис в Москве хватит.';
+  else if(money >= 5) remark = 'На один ужин в Каше хватит.';
+  document.getElementById('finalRemark').textContent = remark;
+  document.getElementById('modalEnd').classList.remove('hidden');
+}
+
+document.getElementById('btnStart').addEventListener('click', startGame);
+document.getElementById('btnRestart').addEventListener('click', startGame);
+
+// Initial render so canvas not blank
+reset();
+loop();
+
+})();
+</script>
+</body>
+</html>
