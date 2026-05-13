@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ГПУ Logistics Bench · Перевозка газопоршневого оборудования Европа → РФ</title>
+<meta name="description" content="Бенчмарк российских логистических компаний по перевозке газопоршневых установок (ГПУ) из Европы в РФ. Сортировка по цене. Готовые сообщения для пробивки.">
+<meta property="og:title" content="ГПУ Logistics Bench">
+<meta property="og:description" content="Бенчмарк 10 российских перевозчиков ГПУ из Европы. Цены, сроки, контакты, готовые сообщения для пробивки.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E10600;
+  --red-dark:#a30400;
+  --red-soft:#ffe5e3;
+  --ink:#0a0a0a;
+  --bone:#fafaf7;
+  --line:#0a0a0a;
+  --muted:#666;
+  --grid:#ececea;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bone);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1400px;margin:0 auto;padding:0 32px}
+
+/* HEADER STRIP */
+.tape{
+  background:var(--red);
+  color:#fff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 0;
+  overflow:hidden;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  border-bottom:3px solid var(--ink);
+}
+.tape-track{display:flex;gap:48px;white-space:nowrap;animation:slide 40s linear infinite;}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tape-track span::before{content:"◆ ";margin-right:4px}
+
+/* HERO */
+.hero{
+  padding:60px 0 80px;
+  border-bottom:3px solid var(--ink);
+  position:relative;
+  overflow:hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  top:-100px;right:-100px;
+  width:500px;height:500px;
+  background:var(--red);
+  border-radius:50%;
+  opacity:0.06;
+  z-index:0;
+}
+.hero-inner{position:relative;z-index:1}
+.kicker{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  background:var(--ink);
+  color:#fff;
+  padding:6px 12px;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
+.kicker .dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-right:8px;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+h1.hero-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(48px,8vw,112px);
+  line-height:0.92;
+  letter-spacing:-0.04em;
+  font-weight:700;
+  margin-bottom:32px;
+}
+h1.hero-title .red{color:var(--red)}
+h1.hero-title .strike{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:6px;}
+
+.hero-lead{
+  font-size:21px;
+  max-width:720px;
+  line-height:1.45;
+  color:var(--ink);
+  margin-bottom:40px;
+}
+.hero-lead strong{background:var(--red);color:#fff;padding:2px 8px}
+
+.stats-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink);
+  margin-top:48px;
+}
+.stat{
+  padding:24px;
+  border-right:2px solid var(--ink);
+}
+.stat:last-child{border-right:none}
+.stat-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:48px;
+  font-weight:700;
+  line-height:1;
+  color:var(--red);
+  margin-bottom:8px;
+}
+.stat-lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  color:var(--muted);
+}
+
+/* SECTION */
+section{padding:80px 0;border-bottom:2px solid var(--grid)}
+.sec-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  color:var(--red);
+  font-weight:600;
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.sec-label::before{
+  content:"";
+  display:block;
+  width:40px;height:2px;background:var(--red);
+}
+h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(36px,5vw,64px);
+  line-height:1;
+  letter-spacing:-0.03em;
+  font-weight:700;
+  margin-bottom:32px;
+  max-width:900px;
+}
+h2 .red{color:var(--red)}
+.sec-lead{font-size:18px;max-width:720px;color:var(--ink);margin-bottom:48px;line-height:1.5}
+
+/* TABLE */
+.table-controls{
+  display:flex;flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:24px;
+  align-items:center;
+}
+.btn-sort{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  background:#fff;
+  border:2px solid var(--ink);
+  padding:8px 16px;
+  cursor:pointer;
+  font-weight:600;
+  transition:all 0.15s;
+}
+.btn-sort:hover{background:var(--ink);color:#fff}
+.btn-sort.active{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-sort .arrow{margin-left:6px;opacity:0.6}
+
+.table-wrap{
+  border:3px solid var(--ink);
+  background:#fff;
+  overflow-x:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1100px;
+  font-size:14px;
+}
+thead{
+  background:var(--ink);
+  color:#fff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+th{padding:14px 16px;text-align:left;font-weight:600;border-right:1px solid #333}
+th:last-child{border-right:none}
+tbody tr{border-bottom:1px solid var(--grid);transition:background 0.1s}
+tbody tr:hover{background:var(--red-soft)}
+td{padding:18px 16px;vertical-align:top;border-right:1px solid var(--grid)}
+td:last-child{border-right:none}
+.rank{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:28px;
+  font-weight:700;
+  color:var(--red);
+  line-height:1;
+  width:50px;
+}
+.cmp-name{
+  font-weight:700;
+  font-size:16px;
+  margin-bottom:4px;
+}
+.cmp-site{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--muted);
+}
+.cmp-site a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.cmp-site a:hover{color:var(--red);border-color:var(--red)}
+.price{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;
+  font-weight:700;
+  color:var(--ink);
+  display:block;
+}
+.price-note{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}
+.stars{color:var(--red);letter-spacing:2px;font-size:16px}
+.stars .off{color:var(--grid)}
+.contact-line{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  margin-bottom:4px;
+}
+.contact-line.email a{color:var(--red);text-decoration:none}
+.contact-line.email a:hover{text-decoration:underline}
+.verdict-cell{font-size:13px;line-height:1.45;color:#333;max-width:280px}
+
+/* TOP PICKS */
+.picks-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border:3px solid var(--ink);
+  background:#fff;
+}
+.pick{
+  padding:32px;
+  border-right:2px solid var(--ink);
+  position:relative;
+}
+.pick:last-child{border-right:none}
+.pick-rank{
+  position:absolute;
+  top:0;right:0;
+  background:var(--red);
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:48px;
+  font-weight:700;
+  padding:8px 20px;
+  line-height:1;
+}
+.pick h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:32px;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  margin:0 0 8px 0;
+  padding-right:80px;
+}
+.pick-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  background:var(--red-soft);
+  color:var(--red-dark);
+  padding:4px 8px;
+  font-weight:600;
+  margin-bottom:24px;
+  letter-spacing:0.05em;
+}
+.pick-body{font-size:14px;line-height:1.55;color:#333;margin-bottom:24px;min-height:120px}
+.pick-meta{
+  border-top:2px solid var(--ink);
+  padding-top:16px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+}
+.pick-meta div{margin-bottom:6px}
+.pick-meta strong{color:var(--ink)}
+.pick-meta a{color:var(--red);text-decoration:none}
+
+/* MESSAGES */
+.msg-card{
+  background:#fff;
+  border:3px solid var(--ink);
+  margin-bottom:24px;
+  overflow:hidden;
+}
+.msg-head{
+  background:var(--ink);
+  color:#fff;
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.msg-target{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;
+  font-weight:700;
+}
+.msg-channel{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  text-transform:uppercase;
+  background:var(--red);
+  padding:6px 12px;
+  letter-spacing:0.05em;
+}
+.msg-body{padding:24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start}
+.msg-text{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  line-height:1.6;
+  white-space:pre-wrap;
+  color:#222;
+  background:var(--bone);
+  padding:20px;
+  border-left:4px solid var(--red);
+}
+.btn-copy{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.btn-copy:hover{background:var(--red-dark)}
+.btn-copy.copied{background:#0a5d2a}
+.msg-foot{
+  padding:16px 24px;
+  background:var(--bone);
+  border-top:1px solid var(--grid);
+  font-size:13px;
+  color:var(--muted);
+  font-family:'JetBrains Mono',monospace;
+}
+.msg-foot strong{color:var(--ink)}
+.msg-foot a{color:var(--red);text-decoration:none}
+
+/* BIZ MODEL */
+.biz-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:0;
+  border:3px solid var(--ink);
+}
+.biz-cell{
+  padding:32px;
+  border-right:2px solid var(--ink);
+  border-bottom:2px solid var(--ink);
+  background:#fff;
+}
+.biz-cell:nth-child(2n){border-right:none}
+.biz-cell:nth-last-child(-n+2){border-bottom:none}
+.biz-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:64px;
+  font-weight:700;
+  color:var(--red);
+  line-height:1;
+  margin-bottom:12px;
+}
+.biz-cell h4{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+.biz-cell p{font-size:15px;line-height:1.5;color:#333}
+
+.unit-econ{
+  margin-top:48px;
+  border:3px solid var(--ink);
+  background:#fff;
+  overflow:hidden;
+}
+.unit-econ-head{
+  background:var(--red);
+  color:#fff;
+  padding:18px 24px;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:20px;
+}
+.unit-row{
+  display:grid;
+  grid-template-columns:1fr 200px 200px;
+  padding:14px 24px;
+  border-bottom:1px solid var(--grid);
+  font-size:14px;
+  align-items:center;
+}
+.unit-row.head{
+  background:var(--ink);
+  color:#fff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  border-bottom:none;
+}
+.unit-row.total{
+  background:var(--red-soft);
+  font-weight:700;
+  border-top:2px solid var(--ink);
+  border-bottom:none;
+}
+.unit-row .num{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  text-align:right;
+}
+.unit-row.total .num{font-size:20px;color:var(--red)}
+
+/* FOOTER */
+footer{
+  background:var(--ink);
+  color:#fff;
+  padding:48px 0;
+}
+.foot-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:48px;
+}
+footer h5{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  color:var(--red);
+  margin-bottom:12px;
+}
+footer p, footer li{font-size:14px;line-height:1.55;color:#ccc}
+footer ul{list-style:none}
+footer a{color:#fff;text-decoration:none;border-bottom:1px solid #444}
+footer a:hover{border-color:var(--red);color:var(--red)}
+.foot-by{
+  margin-top:48px;
+  padding-top:24px;
+  border-top:1px solid #333;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:#666;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+
+/* MOBILE */
+@media (max-width:900px){
+  .wrap{padding:0 20px}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(-n+2){border-bottom:2px solid var(--ink)}
+  .picks-grid{grid-template-columns:1fr}
+  .pick{border-right:none;border-bottom:2px solid var(--ink)}
+  .pick:last-child{border-bottom:none}
+  .biz-grid{grid-template-columns:1fr}
+  .biz-cell{border-right:none}
+  .biz-cell:nth-last-child(-n+2){border-bottom:2px solid var(--ink)}
+  .biz-cell:last-child{border-bottom:none}
+  .msg-body{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .unit-row{grid-template-columns:1fr 100px 100px;font-size:13px;padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- TAPE -->
+<div class="tape">
+  <div class="tape-track">
+    <span>ГПУ Logistics Bench v1</span>
+    <span>13 мая 2026</span>
+    <span>10 компаний · 6 проверенных цен</span>
+    <span>Прицел: Германия → Москва</span>
+    <span>1–4 МВт ГПУ · MWM / MTU / MAN</span>
+    <span>Параллельный импорт + Турция-маршрут</span>
+    <span>ГПУ Logistics Bench v1</span>
+    <span>13 мая 2026</span>
+    <span>10 компаний · 6 проверенных цен</span>
+    <span>Прицел: Германия → Москва</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="kicker"><span class="dot"></span>Бенчмарк · 13 мая 2026</div>
+    <h1 class="hero-title">
+      Кто реально<br>возит <span class="red">ГПУ</span><br>из Европы<br>в <span class="strike">2022</span> <span class="red">2026</span>.
+    </h1>
+    <p class="hero-lead">
+      Бенчмарк <strong>10 российских логистов</strong>, которые декларируют опыт перевозки газопоршневых установок из ЕС в РФ. Цены, маршруты, контакты, готовые сообщения для пробивки и расчёт unit-экономики бизнес-модели.
+    </p>
+    <div class="stats-strip">
+      <div class="stat"><div class="stat-num">10</div><div class="stat-lbl">Компаний в обзоре</div></div>
+      <div class="stat"><div class="stat-num">€2.6k</div><div class="stat-lbl">Минимум (DA-Trans)</div></div>
+      <div class="stat"><div class="stat-num">€35k</div><div class="stat-lbl">Потолок (Major heavy)</div></div>
+      <div class="stat"><div class="stat-num">7–45</div><div class="stat-lbl">Дней транзит</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TABLE -->
+<section id="bench">
+  <div class="wrap">
+    <div class="sec-label">01 · Сортируемый бенчмарк</div>
+    <h2>Все 10 компаний.<br>Сортируй по <span class="red">цене.</span></h2>
+    <p class="sec-lead">Цены — ориентировочные за один ГПУ-юнит 1–2 МВт (контейнер 15–25 т) Германия → Москва под ключ с таможней. Точные ценники получишь после пробивки (см. секцию 03).</p>
+
+    <div class="table-controls">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-right:8px">СОРТИРОВАТЬ:</span>
+      <button class="btn-sort active" data-sort="price-asc">Цена ↑</button>
+      <button class="btn-sort" data-sort="price-desc">Цена ↓</button>
+      <button class="btn-sort" data-sort="exp-desc">Опыт с ГПУ</button>
+      <button class="btn-sort" data-sort="lead-asc">Срок (быстрее)</button>
+      <button class="btn-sort" data-sort="name-asc">Алфавит</button>
+    </div>
+
+    <div class="table-wrap">
+      <table id="benchTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Компания</th>
+            <th>Специализация</th>
+            <th>Цена (€)</th>
+            <th>Опыт<br>ГПУ</th>
+            <th>Срок<br>дн.</th>
+            <th>Маршруты / транспорт</th>
+            <th>Контакты</th>
+            <th>Вердикт</th>
+          </tr>
+        </thead>
+        <tbody id="benchBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TOP PICKS -->
+<section id="picks">
+  <div class="wrap">
+    <div class="sec-label">02 · Топ-3 для пробивки</div>
+    <h2>Кому звонить <span class="red">первым.</span></h2>
+    <p class="sec-lead">Эти трое покрывают весь спектр: бюджетный baseline, специализированный «ГПУ-под-ключ» и проектный тяжеловес. Пробить параллельно за один день — и у тебя честный коридор рынка.</p>
+
+    <div class="picks-grid">
+      <div class="pick">
+        <div class="pick-rank">1</div>
+        <h3>BestDeals</h3>
+        <div class="pick-tag">Единственный с лендингом «Перевозка ГПУ»</div>
+        <div class="pick-body">Они откровенно позиционируются именно на газопоршневых установках. Это значит — есть кейсы, есть оценочные шаблоны, есть готовый процесс. Стоит пробить первыми чтобы получить «нормальную» цену рынка, а не universal-логиста.</div>
+        <div class="pick-meta">
+          <div><strong>Телефон:</strong> +7 (812) 507-39-86</div>
+          <div><strong>Email:</strong> <a href="mailto:contact@bestdeals.ru">contact@bestdeals.ru</a></div>
+          <div><strong>Прицел:</strong> €5–8k за юнит 1–2 МВт</div>
+        </div>
+      </div>
+      <div class="pick">
+        <div class="pick-rank">2</div>
+        <h3>Major</h3>
+        <div class="pick-tag">Проектные грузы до 200 т, с 2001</div>
+        <div class="pick-body">Единственные кто реально возит тяжёлый негабарит — тралы до 200 тонн, вооружённое сопровождение, лицензия таможенного представителя. Для ГПУ >2 МВт (40+ тонн) альтернатив у них в РФ почти нет. Цена соответствующая.</div>
+        <div class="pick-meta">
+          <div><strong>Телефон:</strong> 8 (800) 551-18-12</div>
+          <div><strong>Email:</strong> <a href="mailto:sales@mjr.ru">sales@mjr.ru</a></div>
+          <div><strong>Прицел:</strong> $30–50k+ за тяжёлый ГПУ</div>
+        </div>
+      </div>
+      <div class="pick">
+        <div class="pick-rank">3</div>
+        <h3>ДА-ТРАНС</h3>
+        <div class="pick-tag">Прозрачный baseline Германия → Москва</div>
+        <div class="pick-body">Конкретная фиксированная цена €2,620 за фуру 20 т Berlin → Москва за 7–9 дней. Это нижняя планка рынка, лучшая референсная точка чтобы понять насколько Major / AsstrA берут премию за «специализацию».</div>
+        <div class="pick-meta">
+          <div><strong>Телефон:</strong> 8 (800) 250-06-60</div>
+          <div><strong>Сайт:</strong> <a href="https://datrans.ru" target="_blank">datrans.ru</a></div>
+          <div><strong>Прицел:</strong> €2.6k baseline + extras</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGES -->
+<section id="messages">
+  <div class="wrap">
+    <div class="sec-label">03 · Готовые сообщения</div>
+    <h2>Скопируй.<br>Отправь. <span class="red">Получи цены.</span></h2>
+    <p class="sec-lead">Три варианта пробивки: <strong>«быстрая»</strong> для email/telegram, <strong>«детальная»</strong> с кратким ТЗ, <strong>«сравнительная»</strong> когда хочешь явно показать что собираешь несколько КП. Используй то что лучше зайдёт каналу.</p>
+
+    <!-- MSG 1 - bestdeals -->
+    <div class="msg-card">
+      <div class="msg-head">
+        <div class="msg-target">BestDeals (БЭСТ ДИАЛС)</div>
+        <div class="msg-channel">email + телефон</div>
+      </div>
+      <div class="msg-body">
+        <div class="msg-text" id="msg-bestdeals">Здравствуйте.
+
+Видел у вас на сайте лендинг «Перевозка ГПУ под ключ». Готовим проект — нужно перевезти газопоршневую установку из Германии в Россию (Московская область). Параметры:
+
+— Производитель: MWM / MTU / MAN (уточним по контракту)
+— Мощность: 1.5–2 МВт
+— Габариты: контейнерное исполнение, ~12×2.5×3 м, вес ~18–22 т
+— Старт: завод-изготовитель в Германии (Mannheim / Friedrichshafen, уточним)
+— Финиш: объект в Подмосковье, под установку
+— Сроки желательные: до 30 дней с момента готовности отгрузки
+
+Прошу ориентировочную смету (можно вилкой) на:
+1. Маршрут «под ключ» с учётом таможни и страховки
+2. Срок транзита
+3. Какой маршрут используете сейчас (Турция / Литва / др.)
+4. Опыт с конкретно ГПУ (если есть кейсы — буду рад услышать)
+
+Хотим понять рынок и сравнить с 2–3 другими предложениями. Если будут вопросы по уточнению ТЗ — готов созвониться.
+
+С уважением,
+[Имя]
+[телефон / email]</div>
+        <button class="btn-copy" data-target="msg-bestdeals">Скопировать</button>
+      </div>
+      <div class="msg-foot">
+        <strong>Куда:</strong> <a href="mailto:contact@bestdeals.ru">contact@bestdeals.ru</a> + звонок на +7 (812) 507-39-86 (сослаться на email)
+      </div>
+    </div>
+
+    <!-- MSG 2 - major -->
+    <div class="msg-card">
+      <div class="msg-head">
+        <div class="msg-target">Major (mjr.ru)</div>
+        <div class="msg-channel">email · корпоративный sales</div>
+      </div>
+      <div class="msg-body">
+        <div class="msg-text" id="msg-major">Добрый день, команда Major.
+
+Обращаюсь по проектному грузу — газопоршневая установка большой мощности из Германии в Россию.
+
+Параметры (ориентировочно, финал по контракту):
+— ГПУ контейнерного исполнения 2–4 МВт
+— Вес: 35–55 тонн в зависимости от конфигурации
+— Габариты основного модуля: ~12×3×3.5 м (попадает в категорию негабарит)
+— Сопутствующее: блок управления + теплообменник (≤ 5 т доп.)
+— Точка отгрузки: завод в Германии (укажем после фиксации поставщика)
+— Точка доставки: промышленный объект в Центральной России
+
+По вашему профилю «Проектные грузы» вижу, что 200-тонные тралы — ваша компетенция. Хотел уточнить:
+
+1. Ориентировочная стоимость доставки под ключ (с маршрутными согласованиями, сопровождением, таможенным оформлением и страхованием)
+2. Срок с момента готовности отгрузки до выгрузки на объекте
+3. Текущая схема маршрута (через какие хабы)
+4. Делали ли подобные перевозки ГПУ в последние 12 месяцев — буду рад референсу
+
+Готов передать полные ТЗ после получения предварительной вилки. Срочность средняя — собираем 2–3 предложения для сравнения.
+
+С уважением,
+[Имя, должность, контакт]</div>
+        <button class="btn-copy" data-target="msg-major">Скопировать</button>
+      </div>
+      <div class="msg-foot">
+        <strong>Куда:</strong> <a href="mailto:sales@mjr.ru">sales@mjr.ru</a> · в тему: «Проектный груз — ГПУ из Германии, запрос КП»
+      </div>
+    </div>
+
+    <!-- MSG 3 - datrans -->
+    <div class="msg-card">
+      <div class="msg-head">
+        <div class="msg-target">ДА-ТРАНС (datrans.ru)</div>
+        <div class="msg-channel">короткое сообщение · форма на сайте</div>
+      </div>
+      <div class="msg-body">
+        <div class="msg-text" id="msg-datrans">Здравствуйте.
+
+Нужна перевозка ГПУ из Германии (Berlin/Hamburg область) в Москву:
+— Контейнерная установка ~18–20 тонн
+— Габариты в стандартный 40-футовый HC контейнер
+— Срок — стандартный 7–10 дней
+— Нужна таможня + страхование
+
+На сайте указана базовая цена €2,620 для еврофуры 20 т Berlin → Москва за 7–9 дней.
+
+Прошу подтвердить:
+1. Применима ли эта цена к перевозке в контейнере для энергетического оборудования
+2. Финальная цена «под ключ» с таможней и страхованием
+3. Сроки для конкретного объекта в Подмосковье
+
+Можете ли быстро (вы обещаете 15 минут) выдать расчёт?
+
+Спасибо,
+[Имя, телефон]</div>
+        <button class="btn-copy" data-target="msg-datrans">Скопировать</button>
+      </div>
+      <div class="msg-foot">
+        <strong>Куда:</strong> Звонок 8 (800) 250-06-60 (обещают расчёт за 15 минут) или форма на datrans.ru
+      </div>
+    </div>
+
+    <!-- MSG 4 - imexpartner -->
+    <div class="msg-card">
+      <div class="msg-head">
+        <div class="msg-target">ИмЭксПартнер (imexpartner.ru)</div>
+        <div class="msg-channel">email · sanctions routing</div>
+      </div>
+      <div class="msg-body">
+        <div class="msg-text" id="msg-imex">Здравствуйте.
+
+По вашему профилю работы с нефтегазовым и тяжёлым оборудованием — есть запрос на перевозку ГПУ из Европы в Россию.
+
+Контекст:
+— ГПУ европейского производителя (MWM/MTU/MAN), 1.5–2 МВт
+— Контейнерное исполнение, 18–22 т
+— Германия / Австрия → Московская область
+— Маршрут через ваши офисы в Турции / Литве — приоритетно
+— Параллельный импорт, нужна корректная схема таможенного оформления
+
+Видел на вашем сайте сэмплы: Abu Dhabi → Москва 30 т = $28k за 25 дней. Хотел бы аналогичный расчёт для Германия → Москва, ~20 т, под ключ.
+
+Запрос:
+1. Стоимость с разбивкой (фрахт + таможня + страховка)
+2. Срок транзита
+3. Текущий рабочий маршрут (TR vs LT vs др.)
+4. Есть ли проблемные точки с подобным оборудованием
+
+Готов передать полное ТЗ после получения вилки.
+
+[Имя, контакт]</div>
+        <button class="btn-copy" data-target="msg-imex">Скопировать</button>
+      </div>
+      <div class="msg-foot">
+        <strong>Куда:</strong> <a href="mailto:sales@imexpartner.ru">sales@imexpartner.ru</a> + дубль по тел. +7 (499) 455-55-13
+      </div>
+    </div>
+
+    <!-- MSG 5 - orlan -->
+    <div class="msg-card">
+      <div class="msg-head">
+        <div class="msg-target">Орлан (orlan.su)</div>
+        <div class="msg-channel">email · форма запроса КП</div>
+      </div>
+      <div class="msg-body">
+        <div class="msg-text" id="msg-orlan">Добрый день.
+
+Запрос на доставку газопоршневой установки из Германии в Россию через ваш стандартный маршрут (Турция).
+
+— Контейнерное исполнение 1.5–2 МВт
+— Вес: 18–22 т
+— Объём: стандартный 40' HC
+— Старт: Mannheim / Friedrichshafen (уточним)
+— Финиш: Московская область
+— Срок: чем быстрее, тем лучше
+
+На сайте указано: «от €3/кг», 50 кг / 1 м³ минимум, среднее время ДТ — 8 часов. Хочу подтвердить применимость этой ставки на 18–22 т контейнерного груза.
+
+Запрос:
+1. Финальная стоимость под ключ
+2. Срок с момента отгрузки
+3. Текущая схема (через какой порт TR)
+4. Сертификаты соответствия — берёте на себя или клиент готовит
+
+Сравниваю с 3–4 другими предложениями.
+
+[Имя, контакт]</div>
+        <button class="btn-copy" data-target="msg-orlan">Скопировать</button>
+      </div>
+      <div class="msg-foot">
+        <strong>Куда:</strong> <a href="mailto:info@orlan.su">info@orlan.su</a> · тел. +7 (499) 397-77-83
+      </div>
+    </div>
+
+    <!-- MSG 6 - asstra -->
+    <div class="msg-card">
+      <div class="msg-head">
+        <div class="msg-target">AsstrA (asstra.ru)</div>
+        <div class="msg-channel">email · premium tier</div>
+      </div>
+      <div class="msg-body">
+        <div class="msg-text" id="msg-asstra">Здравствуйте, AsstrA.
+
+Запрос на перевозку газопоршневой установки европейского производства из Германии в Россию. По вашему профилю — газовое оборудование, SQAS-сертификация, страхование до €3M — выглядит профильно.
+
+Параметры:
+— ГПУ 1.5–2 МВт, контейнерное исполнение
+— Вес 18–22 т, габариты 40' HC
+— Германия → Московская область
+— Под ключ с таможней и страхованием
+
+Прошу:
+1. Ориентировочную стоимость (понимаю что премиум-сегмент, хочу увидеть вилку)
+2. Срок транзита
+3. Уровень страхового покрытия по умолчанию
+4. Опыт с MWM/MTU/MAN ГПУ за последние 12 месяцев
+
+Сравниваю несколько КП, в фокусе — баланс «цена / покрытие рисков».
+
+[Имя, контакт]</div>
+        <button class="btn-copy" data-target="msg-asstra">Скопировать</button>
+      </div>
+      <div class="msg-foot">
+        <strong>Куда:</strong> <a href="mailto:office@asstra.ru">office@asstra.ru</a> · тел. +7 (495) 660-56-98
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BIZ MODEL -->
+<section id="biz">
+  <div class="wrap">
+    <div class="sec-label">04 · Бизнес-модель</div>
+    <h2>Где здесь <span class="red">деньги.</span></h2>
+    <p class="sec-lead">Если идея — не «возить ГПУ за свой счёт», а «стать брокером логистики ГПУ для покупателей оборудования», вот как это считается на пальцах.</p>
+
+    <div class="biz-grid">
+      <div class="biz-cell">
+        <div class="biz-num">€200k</div>
+        <h4>Стоимость 1 ГПУ FOB</h4>
+        <p>Газопоршневая установка MWM/MTU 1–2 МВт в контейнерном исполнении на заводе в Германии. Range €150k–€500k в зависимости от мощности и комплектации.</p>
+      </div>
+      <div class="biz-cell">
+        <div class="biz-num">3–5%</div>
+        <h4>Доля логистики в стоимости</h4>
+        <p>Стандартно логистика «под ключ» из ЕС в РФ для контейнерного оборудования = 3–5% FOB. Для тяжёлого негабарита (>40 т) — 5–10%.</p>
+      </div>
+      <div class="biz-cell">
+        <div class="biz-num">€6.5k</div>
+        <h4>Реальная цена сделки</h4>
+        <p>Медиана рынка для ГПУ 1–2 МВт Германия → Москва под ключ: €5–8k. Это то что заплатит конечный заказчик логисту напрямую.</p>
+      </div>
+      <div class="biz-cell">
+        <div class="biz-num">20–30%</div>
+        <h4>Markup брокера</h4>
+        <p>Если бронируешь логистику оптом или имеешь договор-нетто с перевозчиком — реалистичная маржа на B2B-перепродаже 20–30%. То есть €1.3k–€2k на юнит «чистой» при минимуме операционки.</p>
+      </div>
+    </div>
+
+    <div class="unit-econ">
+      <div class="unit-econ-head">Unit-экономика — 1 ГПУ юнит 1.5 МВт</div>
+      <div class="unit-row head">
+        <div>Строка</div>
+        <div class="num">Базовый сценарий</div>
+        <div class="num">Премиум сценарий</div>
+      </div>
+      <div class="unit-row">
+        <div>Цена логистики «под ключ» от перевозчика (ваша закупка)</div>
+        <div class="num">€5,000</div>
+        <div class="num">€8,500</div>
+      </div>
+      <div class="unit-row">
+        <div>Markup брокеру (25%)</div>
+        <div class="num">€1,250</div>
+        <div class="num">€2,125</div>
+      </div>
+      <div class="unit-row">
+        <div>Финальная цена клиенту</div>
+        <div class="num">€6,250</div>
+        <div class="num">€10,625</div>
+      </div>
+      <div class="unit-row">
+        <div>Операционные расходы (документы, координация, эскалации)</div>
+        <div class="num">€400</div>
+        <div class="num">€700</div>
+      </div>
+      <div class="unit-row total">
+        <div>Чистая маржа на 1 юнит</div>
+        <div class="num">€850</div>
+        <div class="num">€1,425</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;padding:32px;background:var(--ink);color:#fff;border:3px solid var(--red)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.05em;color:var(--red);margin-bottom:12px">⚡ Что делает модель рабочей</div>
+      <p style="font-size:18px;line-height:1.45;max-width:760px">
+        Не «возить самим», а <strong style="color:var(--red)">собирать спрос у покупателей ГПУ</strong> (заводы, котельные, девелоперы, дата-центры на собственной генерации) и продавать им логистику под ключ как услугу. На 20 юнитов в год = <strong style="color:var(--red)">€17k–€28k чистой маржи</strong> при ~5–10 часах работы на сделку. Деньги — в leadgen и эксклюзивных нетто-договорах с 2–3 топовыми перевозчиками.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section id="method">
+  <div class="wrap">
+    <div class="sec-label">05 · Методология</div>
+    <h2>Откуда цифры.</h2>
+    <p class="sec-lead">Все компании найдены через прямой поиск по запросам «перевозка ГПУ», «доставка газопоршневой установки», «проектные грузы Германия Россия». Цены — либо из публичных тарифов на сайтах (где есть), либо экстраполированы из соседних кейсов (всегда помечено как ориентир, не котировка).</p>
+    <p class="sec-lead">Прицельный сегмент бенчмарка: ГПУ 1–2 МВт европейских OEM (MWM, MTU, MAN, Wärtsilä) в контейнерном исполнении 18–25 т, маршрут Германия → Московская область. Тяжёлые ГПУ &gt;40 т обозначены отдельно (для них почти безальтернативен Major).</p>
+    <p class="sec-lead"><strong>Что НЕ протестировано на этом этапе:</strong> реальные котировки от компаний (см. секцию 03 — отправь сообщения и получишь точные цифры за 1–3 рабочих дня); риски параллельного импорта на конкретный OEM/таможню; страховые условия на конкретную партию.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h5>ГПУ Logistics Bench</h5>
+        <p>Бенчмарк российских логистов по перевозке газопоршневых установок из Европы в РФ. Собран 13 мая 2026. Все данные — из открытых источников плюс экстраполяция, не оферта.</p>
+      </div>
+      <div>
+        <h5>Топ-3 для пробивки</h5>
+        <ul>
+          <li><a href="mailto:contact@bestdeals.ru">BestDeals</a></li>
+          <li><a href="mailto:sales@mjr.ru">Major</a></li>
+          <li>ДА-ТРАНС (форма / 8-800)</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Автор</h5>
+        <p>Тим Зинин<br><a href="https://timzinin.com">timzinin.com</a><br>TG: @timzinin</p>
+      </div>
+    </div>
+    <div class="foot-by">
+      <span>v1.0 · 13.05.2026 · built with Claude Code</span>
+      <span>Не оферта. Не финансовая рекомендация. Проверяй цены перед сделкой.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const data = {
+  "companies":[]
+};
+
+// Inline data (parsed from data.json content)
+const COMPANIES = [
+  {"id":"datrans","name":"ДА-ТРАНС","site":"datrans.ru","site_url":"https://datrans.ru","specialty":"Германия → Москва, фуры","gpu_experience":3,"routes":"Берлин/Гамбург → Москва","transport":"Eurotruck 20т/92м³, морфрахт","price_estimate_eur":2620,"price_note":"Berlin→Москва, фура 20т = €2,620 за 7–9 дней. Публичная фикс-цена.","lead_time_days":"7–10","lead_min":7,"phone":"8 (800) 250-06-60","email":"—","verdict":"Самый прозрачный baseline. ГПУ ≤20т в контейнере OK. Heavy — не их."},
+  {"id":"transportir","name":"Transportir","site":"transportir.ru","site_url":"https://transportir.ru","specialty":"FTL/LTL ЕС → РФ","gpu_experience":3,"routes":"Польша/Италия/Германия → РФ","transport":"FTL, LTL, авиа Стамбул","price_estimate_eur":2900,"price_note":"FTL от €2,900. Газ hazmat 1/7 в стоп-листе — уточнять.","lead_time_days":"5–10","lead_min":5,"phone":"+7 (495) 229-14-70","email":"russia@transportir.com","verdict":"Дёшево для стандарта. Газовое оборудование как hazmat у них может не пройти."},
+  {"id":"orlan","name":"Орлан","site":"orlan.su","site_url":"https://orlan.su","specialty":"Sanctions routing через Турцию","gpu_experience":3,"routes":"Германия → Турция → РФ","transport":"Авиа/ЖД/авто/море","price_estimate_eur":4500,"price_note":"От €3/кг. 18–22т контейнер ≈ €6–9k индивидуально.","lead_time_days":"3–14","lead_min":3,"phone":"+7 (499) 397-77-83","email":"info@orlan.su","verdict":"Прозрачная €/кг + sanctions-маршрут. Хорошо для скорости."},
+  {"id":"ulex","name":"Юлэкс","site":"ulex.info","site_url":"https://ulex.info","specialty":"Газовое оборудование, газодобыча","gpu_experience":3,"routes":"Изготовитель → регион РФ","transport":"Авто/ЖД/авиа","price_estimate_eur":6000,"price_note":"Публичных цен нет. По запросу.","lead_time_days":"10–20","lead_min":10,"phone":"уточнять","email":"—","verdict":"Нишевые на газе. Стоит пробить для специализированного бенчмарка."},
+  {"id":"bestdeals","name":"БЭСТ ДИАЛС","site":"bestdeals.ru","site_url":"https://bestdeals.ru","specialty":"Лендинг «Перевозка ГПУ под ключ»","gpu_experience":5,"routes":"DE/AT/IT/NL/US/JP/CN → СПб, MSK, EKB","transport":"Авто/ЖД/море под ключ","price_estimate_eur":6500,"price_note":"€0,082/кг базовая. ГПУ 1–2 МВт ориентир €5–8k.","lead_time_days":"10–21","lead_min":10,"phone":"+7 (812) 507-39-86","email":"contact@bestdeals.ru","verdict":"Топ #1 entry. Маркетинг говорит «специалисты ГПУ»."},
+  {"id":"central-trans","name":"Central Trans","site":"centraltrans.ru","site_url":"https://centraltrans.ru","specialty":"Проектные грузы Урал/Сибирь","gpu_experience":3,"routes":"Екатеринбург + регионы","transport":"Тралы, проектная логистика","price_estimate_eur":9000,"price_note":"Цены индивидуально. Дешевле московских для Урала.","lead_time_days":"14–28","lead_min":14,"phone":"уточнять","email":"—","verdict":"Логичный выбор для объектов на Урале/в Сибири."},
+  {"id":"asstra","name":"AsstrA","site":"asstra.ru","site_url":"https://asstra.ru","specialty":"Газовое оборудование + проектные","gpu_experience":4,"routes":"EU/Балканы/Скандинавия/CIS","transport":"Мультимодал, SQAS","price_estimate_eur":8500,"price_note":"26 лет, SQAS, страховка €3M. Премиум +15–25%.","lead_time_days":"10–25","lead_min":10,"phone":"+7 (495) 660-56-98","email":"office@asstra.ru","verdict":"Премиум. Хорош когда клиент платит за бренд/страховку."},
+  {"id":"lsk","name":"ЛСК","site":"lsc-group.ru","site_url":"https://lsc-group.ru","specialty":"Нефтегаз → месторождения","gpu_experience":4,"routes":"Все регионы РФ + международные","transport":"Авто/ЖД, спецтехника","price_estimate_eur":7000,"price_note":"Публичных цен нет. Крупнотоннаж + опасные.","lead_time_days":"14–30","lead_min":14,"phone":"уточнять","email":"—","verdict":"Когда ГПУ нужно довезти на удалённое месторождение."},
+  {"id":"imexpartner","name":"ИмЭксПартнер","site":"imexpartner.ru","site_url":"https://imexpartner.ru","specialty":"Нефтегаз + тяжёлое оборудование","gpu_experience":4,"routes":"EU/US/CN/TR/LT → РФ","transport":"Море/авиа/ЖД/авто","price_estimate_eur":25000,"price_note":"Abu Dhabi→Москва 30т=$28k/25 дн. Houston→Мурманск 100т=$45k/45 дн.","lead_time_days":"20–45","lead_min":20,"phone":"+7 (499) 455-55-13","email":"sales@imexpartner.ru","verdict":"Сильный негабарит + sanctions-обход. Прозрачные сэмплы."},
+  {"id":"major","name":"Major","site":"mjr.ru","site_url":"https://mjr.ru","specialty":"Проектные грузы до 200 т","gpu_experience":5,"routes":"ЕС → РФ, 37 офисов, 200+ партнёров","transport":"Тралы до 200т, мультимодал","price_estimate_eur":35000,"price_note":"$30–50k+ за ГПУ >40т под ключ. Точная цена индивидуально.","lead_time_days":"20–35","lead_min":20,"phone":"8 (800) 551-18-12","email":"sales@mjr.ru","verdict":"Топ для тяжёлых ГПУ >2 МВт. Без альтернатив на heavy."}
+];
+
+function renderStars(n){
+  let s = '';
+  for(let i=0;i<5;i++) s += i<n ? '★' : '<span class="off">★</span>';
+  return s;
+}
+
+function formatPrice(p){
+  if(p>=10000) return '€' + (p/1000).toFixed(0) + 'k';
+  return '€' + p.toLocaleString('ru-RU');
+}
+
+function renderTable(rows){
+  const tbody = document.getElementById('benchBody');
+  tbody.innerHTML = rows.map((c,i)=>`
+    <tr>
+      <td class="rank">${String(i+1).padStart(2,'0')}</td>
+      <td>
+        <div class="cmp-name">${c.name}</div>
+        <div class="cmp-site"><a href="${c.site_url}" target="_blank" rel="noopener">${c.site}</a></div>
+      </td>
+      <td>${c.specialty}</td>
+      <td>
+        <span class="price">${formatPrice(c.price_estimate_eur)}</span>
+        <div class="price-note">${c.price_note}</div>
+      </td>
+      <td><span class="stars">${renderStars(c.gpu_experience)}</span></td>
+      <td><strong>${c.lead_time_days}</strong></td>
+      <td style="font-size:13px;color:#555">${c.routes}<br><em style="color:var(--muted);font-size:12px">${c.transport}</em></td>
+      <td>
+        <div class="contact-line"><strong>тел:</strong> ${c.phone}</div>
+        <div class="contact-line email"><strong>email:</strong> ${c.email==='—'?'—':`<a href="mailto:${c.email}">${c.email}</a>`}</div>
+      </td>
+      <td class="verdict-cell">${c.verdict}</td>
+    </tr>
+  `).join('');
+}
+
+function sortBy(key){
+  let arr = [...COMPANIES];
+  switch(key){
+    case 'price-asc': arr.sort((a,b)=>a.price_estimate_eur-b.price_estimate_eur); break;
+    case 'price-desc': arr.sort((a,b)=>b.price_estimate_eur-a.price_estimate_eur); break;
+    case 'exp-desc': arr.sort((a,b)=>b.gpu_experience-a.gpu_experience||a.price_estimate_eur-b.price_estimate_eur); break;
+    case 'lead-asc': arr.sort((a,b)=>a.lead_min-b.lead_min); break;
+    case 'name-asc': arr.sort((a,b)=>a.name.localeCompare(b.name,'ru')); break;
+  }
+  renderTable(arr);
+}
+
+document.querySelectorAll('.btn-sort').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.btn-sort').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    sortBy(btn.dataset.sort);
+  });
+});
+
+// Copy buttons
+document.querySelectorAll('.btn-copy').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const target = document.getElementById(btn.dataset.target);
+    const text = target.textContent;
+    navigator.clipboard.writeText(text).then(()=>{
+      const orig = btn.textContent;
+      btn.textContent = '✓ Скопировано';
+      btn.classList.add('copied');
+      setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied')},2000);
+    });
+  });
+});
+
+// initial
+sortBy('price-asc');
+</script>
+</body>
+</html>
